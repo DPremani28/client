@@ -12,9 +12,7 @@ function ShoppingScraper() {
   const scrapeGoogleAds = async () => {
     try {
         const apiKey='AIzaSyCbpc-mXW0NvahzEV0qqrwRXQl0PXK6Nkk';
-        const response = await axios.get('http://localhost:8080/search',{
-          params: { keyword :keyword}
-          },{
+        const response = await axios.get('http://www.googleapis.com/customsearch/v1?q=${req.query.keyword}&key=${apiKey}',{
         headers: {
           "Cache-Control": "no-cache",
           "Content-Type": "*",
@@ -27,7 +25,7 @@ function ShoppingScraper() {
       });
       const $ = cheerio.load(response.data);
 
-      // Extract data from the first shopping ad
+      
       const productTitle = $('h3').text();
       const price = $('.a-price .a-offscreen').text();
       const imageURL = $('.hlcw0c a img').attr('src');
